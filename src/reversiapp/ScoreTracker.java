@@ -1,3 +1,5 @@
+package reversiapp;
+
 
 public class ScoreTracker {
     private int player1Score;

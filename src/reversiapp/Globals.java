@@ -1,3 +1,5 @@
+package reversiapp;
+
 public class Globals {
     public static final char kBlacks = 'X';
     public static final char kWhites = 'O';

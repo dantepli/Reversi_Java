@@ -1,3 +1,5 @@
+/*package reversiapp;
+
 
 public class Main {
 
@@ -13,3 +15,4 @@ public class Main {
     }
 
 }
+*/

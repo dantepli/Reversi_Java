@@ -1,3 +1,5 @@
+package reversiapp;
+
 
 public class Cell {
     private int row;

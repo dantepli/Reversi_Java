@@ -1,3 +1,5 @@
+package reversiapp;
+
 import java.util.List;
 
 public interface Logic {

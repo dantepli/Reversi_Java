@@ -1,3 +1,5 @@
+package reversiapp;
+
 public class Board {
     private Cell[][] board;
     private int size;
