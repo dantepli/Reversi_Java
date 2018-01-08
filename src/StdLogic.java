@@ -5,6 +5,11 @@ public class StdLogic implements Logic {
     private final int dx[] = { 1, 1, 0, -1, -1, -1, 0, 1 };
     private final int dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
     private final int kNumOfDirs = 8;
+    private ScoreTracker tracker;
+    
+    public StdLogic(ScoreTracker newTracker) {
+        this.tracker = newTracker;
+    }
 
     @Override
     public List<Cell> getPossibleMoves(Player player, Board board) {
@@ -74,6 +79,7 @@ public class StdLogic implements Logic {
         for (int i = 0; i < flips.size(); i++) {
             flips.get(i).setDisk(player.getColor());
         }
+        tracker.updateScore(player.getColor(), flips.size());
     }
 
     /**

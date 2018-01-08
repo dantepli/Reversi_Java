@@ -6,6 +6,7 @@ public class Game {
     private Logic logic;
     private Player player1;
     private Player player2;
+    private ScoreTracker tracker;
     private boolean player1Moves;
     private boolean player2Moves;
 
@@ -23,12 +24,13 @@ public class Game {
      *            - second player
      */
     public Game(Display newDisplay, Board newBoard, Logic newLogic,
-            Player newP1, Player newP2) {
+            Player newP1, Player newP2, ScoreTracker newTracker) {
         this.display = newDisplay;
         this.board = newBoard;
         this.logic = newLogic;
         this.player1 = newP1;
         this.player2 = newP2;
+        this.tracker = newTracker;
         this.player1Moves = true;
         this.player2Moves = true;
     }
@@ -39,7 +41,11 @@ public class Game {
     public void play() {
         while (player1Moves || player2Moves) {
             playTurn(player1);
+            System.out.println("PLAYER 1 SCORE: " + tracker.getPlayer1Score());
+            System.out.println("PLAYER 2 SCORE: " + tracker.getPlayer2Score());
             playTurn(player2);
+            System.out.println("PLAYER 1 SCORE: " + tracker.getPlayer1Score());
+            System.out.println("PLAYER 2 SCORE: " + tracker.getPlayer2Score());
         }
         this.determineHighScore(player1, player2);
     }
@@ -69,23 +75,28 @@ public class Game {
      * @param player2 - player 2.
      */
     private void determineHighScore(Player player1, Player player2) {
-        char player1Disk = player1.getColor();
-        char player2Disk = player2.getColor();
-        int player1Score = 0, player2Score = 0;
-        int bSize = board.getSize();
-        for (int i = 0; i < bSize; i++) {
-            for (int j = 0; j < bSize; j++) {
-                Cell current = board.getCell(i, j);
-                char disk = current.getDisk();
-                if (disk == player1Disk) {
-                    player1Score++;
-                } else if (disk == player2Disk) {
-                    player2Score++;
-                }
-            }
-        }
+//        char player1Disk = player1.getColor();
+//        char player2Disk = player2.getColor();
+//        int player1Score = 0, player2Score = 0;
+//        int bSize = board.getSize();
+//        for (int i = 0; i < bSize; i++) {
+//            for (int j = 0; j < bSize; j++) {
+//                Cell current = board.getCell(i, j);
+//                char disk = current.getDisk();
+//                if (disk == player1Disk) {
+//                    player1Score++;
+//                } else if (disk == player2Disk) {
+//                    player2Score++;
+//                }
+//            }
+//        }
+        int player1Score = tracker.getPlayer1Score();
+        int player2Score = tracker.getPlayer2Score();
         display.displayEndScreen(player1, player2, board, player1Score,
                 player2Score);
+        // ################### REMOVE THIS
+        System.out.println("PLAYER 1 SCORE: " + player1Score);
+        System.out.println("PLAYER 2 SCORE: " + player2Score);
     }
     /**
      * updates the available moves for the player.
