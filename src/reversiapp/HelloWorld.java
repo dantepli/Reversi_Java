@@ -4,10 +4,11 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import settings_io.SettingsReader;
+import settings_io.SettingsWriter;
 
 public class HelloWorld extends Application {
 
@@ -28,10 +29,12 @@ public class HelloWorld extends Application {
     }
 
     public static void main(String[] args) {
+        GameSettings s = SettingsReader.readFile();
+        SettingsWriter.writeFile(s);
         launch(args);
         ScoreTracker tracker = new ScoreTracker();
         Display display = new ConsoleDisplay();
-        Board board = new Board();
+        Board board = new Board(s.getBoardSize());
         Logic logic = new StdLogic(tracker);
         Player p1 = new HumanPlayer(display, Globals.kBlacks);
         Player p2 = new HumanPlayer(display, Globals.kWhites);

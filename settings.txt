@@ -1,0 +1,4 @@
+Starting_Player:Black
+Player1_Color:Black
+Player2_Color:White
+Board_Size:8
