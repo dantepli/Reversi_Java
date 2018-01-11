@@ -10,7 +10,7 @@ public class SettingsReader {
     public static final String kPlayer1Color = "Player1_Color";
     public static final String kPlayer2Color = "Player2_Color";
     public static final String kBoardSize = "Board_Size";
-    public static final String kSeperator = ":";
+    public static final String kSeparator = ":";
 
     public static GameSettings readFile() {
         File filename = new File(kLocation);
@@ -35,7 +35,7 @@ public class SettingsReader {
         GameSettings settings = new GameSettings(); // default settings
         String line = readLine(reader);
         while (line != null) {
-            String[] split = line.split(kSeperator);
+            String[] split = line.split(kSeparator);
             updateSetting(split, settings);
             line = readLine(reader);
         }

@@ -66,6 +66,7 @@ public class Game {
         }
         this.updateMoves(player, true);
         Cell cell = player.pickMove(moves);
+        // EVENT ON CELL CLICK
         Cell changedCell = board.getCell(cell.getRow(), cell.getCol());
         changedCell.setDisk(player.getColor());
         logic.flip(player, changedCell, board);

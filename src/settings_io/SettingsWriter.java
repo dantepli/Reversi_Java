@@ -37,15 +37,15 @@ public class SettingsWriter {
     private static List<String> settingsFields(GameSettings settings) {
         List<String> fields = new LinkedList<String>();
         String field = SettingsReader.kStartingPlayer
-                + SettingsReader.kSeperator + settings.getStartingPlayerStr();
+                + SettingsReader.kSeparator + settings.getStartingPlayerStr();
         fields.add(field);
-        field = SettingsReader.kPlayer1Color + SettingsReader.kSeperator
+        field = SettingsReader.kPlayer1Color + SettingsReader.kSeparator
                 + settings.getPlayer1Str();
         fields.add(field);
-        field = SettingsReader.kPlayer2Color + SettingsReader.kSeperator
+        field = SettingsReader.kPlayer2Color + SettingsReader.kSeparator
                 + settings.getPlayer2Str();
         fields.add(field);
-        field = SettingsReader.kBoardSize + SettingsReader.kSeperator
+        field = SettingsReader.kBoardSize + SettingsReader.kSeparator
                 + settings.getBoardSizeStr();
         fields.add(field);
         return fields;

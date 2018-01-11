@@ -4,6 +4,7 @@ import javafx.scene.paint.Color;
 import reversiapp.Globals;
 
 public class SettingsParser {
+    private static boolean colorError = false;
     public static final String kBlack = "Black";
     public static final String kWhite = "White";
 
@@ -14,10 +15,7 @@ public class SettingsParser {
      * @return - true if valid.
      */
     public static boolean isStartingPlayerValid(String startingStr) {
-        if (startingStr.equals(kBlack) || startingStr.equals(kWhite)) {
-            return true;
-        }
-        return false;
+        return startingStr.equals(kBlack) || startingStr.equals(kWhite);
     }
 
     /**
@@ -36,6 +34,11 @@ public class SettingsParser {
         return true;
     }
 
+    /**
+     *
+     * @param boardSizeStr - a board size string representation.
+     * @return - true if the board size is valid.
+     */
     public static boolean isBoardSizeValid(String boardSizeStr) {
         int boardSize = 0;
         try {
@@ -53,7 +56,7 @@ public class SettingsParser {
 
     /**
      * 
-     * @param starting
+     * @param startingStr
      *            - a starting value line.
      * @return - StartingPlayer enum representation.
      */
@@ -65,15 +68,20 @@ public class SettingsParser {
         }
         return null;
     }
-
     public static Color parsePlayerColor(String colorStr) {
         Color color;
         try {
             color = Color.web(colorStr);
         } catch (Exception e) {
             System.err.println("Invalid color value. " + e.getMessage());
-            color = Color.BLACK;
-            // TODO:::::::::::::::::::::::::::::::::::::::::::::::::::::
+            if(!colorError) {
+                // first time error parsing
+                color = Color.BLACK;
+                colorError = true;
+            } else {
+                color = Color.WHITE;
+            }
+
         }
         return color;
     }

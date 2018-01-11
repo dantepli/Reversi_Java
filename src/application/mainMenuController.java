@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import reversiapp.Board;
+import reversiapp.Game;
 
 public class mainMenuController {
     @FXML
@@ -13,8 +15,8 @@ public class mainMenuController {
 
     }
     @FXML
-    protected void play(){
-
+    protected void play(javafx.event.ActionEvent event){
+        Board board = new Board();
     }
     @FXML
     protected void settings(javafx.event.ActionEvent event) {
