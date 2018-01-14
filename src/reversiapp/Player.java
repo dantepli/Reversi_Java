@@ -16,4 +16,10 @@ public interface Player {
      * @return - the color of the player.
      */
     public char getColor();
+
+    /**
+     *
+     * @return
+     */
+    public String playerName();
 }

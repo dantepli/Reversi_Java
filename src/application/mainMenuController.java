@@ -5,9 +5,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import reversiapp.Board;
 import reversiapp.Game;
+
 
 public class mainMenuController {
     @FXML
@@ -16,7 +18,16 @@ public class mainMenuController {
     }
     @FXML
     protected void play(javafx.event.ActionEvent event){
-        Board board = new Board();
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("reversiGame.fxml"));
+            Scene scene = new Scene(parent,520,400);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Reversi game");
+            stage.setScene(scene);
+            stage.show();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
     }
     @FXML
     protected void settings(javafx.event.ActionEvent event) {

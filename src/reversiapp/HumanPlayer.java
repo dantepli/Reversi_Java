@@ -4,16 +4,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class HumanPlayer implements Player {
-    private Display display;
     private char color;
     
     /**
      * 
-     * @param newDisplay - a display.
      * @param newColor - a color for the player.
      */
-    public HumanPlayer(Display newDisplay, char newColor) {
-        this.display = newDisplay;
+    public HumanPlayer(char newColor) {
         this.color = newColor;
     }
     
@@ -22,7 +19,6 @@ public class HumanPlayer implements Player {
         if(moves.size() == 0) {
             return null;
         }
-        display.displayHumanPlayerChoiceMessage(this, moves);
         int row = 0, col = 0;
         Cell cell;
         Cell invalid = new Cell(-1, -1);
@@ -64,5 +60,12 @@ public class HumanPlayer implements Player {
             }
         }
         return false;
+    }
+    public String playerName() {
+        if(this.color == Globals.kBlacks) {
+            return "First Player";
+        } else {
+            return "Second Player";
+        }
     }
 }
