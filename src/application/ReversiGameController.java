@@ -2,6 +2,7 @@ package application;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -65,12 +66,12 @@ public class ReversiGameController implements Initializable {
         playerTurn.setText("Current Player: " + currentPlayer.playerName());
         player1Score.setText("First Player Score: " + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score: " + scoreTracker.getPlayer2Score());
-        reversiBoard.setPrefWidth(400);
-        reversiBoard.setPrefHeight(400);
+        reversiBoard.setPrefWidth(Main.kWidth / 2);
+        reversiBoard.setPrefHeight(Main.kHeight / 2);
         root.getChildren().add(0, reversiBoard);
         // adds resize listeners.
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double boardNewWidth = newValue.doubleValue() - 180;
+            double boardNewWidth = newValue.doubleValue() - 200;
             reversiBoard.setPrefWidth(boardNewWidth);
             reversiBoard.draw(this.possibleMoves);
         });
@@ -101,7 +102,8 @@ public class ReversiGameController implements Initializable {
      */
     private boolean playTurn(Player player, Cell picked) {
         if (this.possibleMoves.size() == 0) {
-            // text warning
+            AlertBox.display("No Move",
+                    "You have no available moves, turn is passed to other player...");
             return true;
         }
         if (cellValidity(picked, this.possibleMoves)) {
