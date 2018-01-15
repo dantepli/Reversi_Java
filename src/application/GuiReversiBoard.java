@@ -19,8 +19,6 @@ import java.util.List;
 
 public class GuiReversiBoard extends GridPane {
     private Board board;
-    private int height;
-    private int width;
     private GameSettings gameSettings;
     private boolean showPossibleMoves;
 
@@ -44,8 +42,8 @@ public class GuiReversiBoard extends GridPane {
      */
     public void draw(List<Cell> possibleMoves) {
         this.getChildren().clear();
-        this.height = (int) this.getPrefHeight();
-        this.width = (int) this.getPrefWidth();
+        int height = (int) this.getPrefHeight();
+        int width = (int) this.getPrefWidth();
         int bSize = board.getSize();
         int cellHeight = height / bSize;
         int cellWidth = width / bSize;
@@ -64,7 +62,7 @@ public class GuiReversiBoard extends GridPane {
                 Circle disk = null;
                 if (this.board.getCell(i, j).getDisk() == Globals.kBlacks) {
                     disk = new Circle(diskRadius, p1Color);
-                } else if (this.board.getCell(i, j).getDisk() == Globals.kWhites) {
+                } else {
                     disk = new Circle(diskRadius, p2Color);
                 }
                 disk.setStroke(Color.BLACK);
@@ -95,8 +93,8 @@ public class GuiReversiBoard extends GridPane {
         int prefWidth = (int) this.getPrefWidth();
         int cellHeight = (prefHeight / board.getSize());
         int cellWidth = ((prefWidth) / board.getSize());
-        int i = (int) (x / cellWidth);
-        int j = (int) (y / cellHeight);
+        int i = x / cellWidth;
+        int j = y / cellHeight;
         System.out.println(i + " " + j);
         return new Cell(j, i);
     }
@@ -105,10 +103,6 @@ public class GuiReversiBoard extends GridPane {
      * toggles whether to show the possible moves or not.
      */
     public void togglePossibleMoves() {
-        if (this.showPossibleMoves) {
-            this.showPossibleMoves = false;
-        } else {
-            this.showPossibleMoves = true;
-        }
+        this.showPossibleMoves = !this.showPossibleMoves;
     }
 }

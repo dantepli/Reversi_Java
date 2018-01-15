@@ -9,16 +9,20 @@ public interface Player {
      * @param moves - a list of possible moves.
      * @return - a picked cell to place the disk.
      */
-    public Cell pickMove(List<Cell> moves);
+    Cell pickMove(List<Cell> moves);
 
     /**
-     * @return - the color of the player.
+     * @return - disk type.
      */
-    public char getDisk();
+    char getDisk();
 
     /**
      * @return
      */
-    public String playerName();
-    public Color getColor();
+    String playerName();
+
+    /**
+     * @return - color of the player disk.
+     */
+    Color getColor();
 }

@@ -13,17 +13,20 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Circle?>
 
-<HBox fx:id="root" spacing="10" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReversiGameController">
+<HBox fx:id="root" spacing="10" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="application.ReversiGameController">
     <children>
         <VBox spacing="10">
             <children>
-                <Label fx:id="playerTurn" />
+                <Label fx:id="playerTurn"/>
                 <Circle fx:id="playerColor" strokeWidth="3.0" radius="10"/>
-                <Label fx:id="player1Score" />
-                <Label fx:id="player2Score" />
-                <RadioButton fx:id="sMoves" onAction="#showMoves" text="Show Possible Moves" />
-                <Button fx:id="back" onAction="#back" text="Back" />
-                <Button fx:id="restart" onAction="#restart" text="Restart" />
+                <Label fx:id="player1Score"/>
+                <Label fx:id="player2Score"/>
+                <RadioButton fx:id="sMoves" onAction="#showMoves"
+                             text="Show Possible Moves"/>
+                <Button fx:id="back" onAction="#back" text="Back"/>
+                <Button fx:id="restart" onAction="#restart" text="Restart"/>
             </children>
         </VBox>
     </children>

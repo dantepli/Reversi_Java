@@ -1,6 +1,6 @@
 package application;
 
-import javafx.event.ActionEvent;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,8 +31,7 @@ public class ReversiGameController implements Initializable {
     private GuiReversiBoard reversiBoard;
     private ScoreTracker scoreTracker;
     private List<Cell> possibleMoves;
-    private boolean p1HasTurn = true;
-    private boolean p2HasTurn = true;
+    private TurnManager turnManager;
 
     @FXML
     private HBox root;
@@ -68,12 +67,10 @@ public class ReversiGameController implements Initializable {
         this.scoreTracker = new ScoreTracker();
         this.logic = new StdLogic(this.scoreTracker);
         this.reversiBoard = new GuiReversiBoard(board);
+        this.turnManager = new TurnManager(this.scoreTracker, this.board.getSize());
     }
 
     @Override
-    /**
-     * initializes the listeners and fields in the Controller.
-     */
     public void initialize(
             URL location, ResourceBundle
             resources) {
@@ -162,32 +159,20 @@ public class ReversiGameController implements Initializable {
         this.updateTextFields();
         this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
         this.reDraw();
-        if(!this.p1HasTurn && !this.p2HasTurn ||
-                scoreTracker.getPlayer1Score() + scoreTracker.getPlayer2Score() == board.getSize() * board.getSize()) {
+        if (turnManager.gameOver()) {
             // game over.
             AlertBox.display("WICTORY", "CYKA BLAT");
             System.exit(0);
         }
-        if(this.possibleMoves.size() == 0) {
+        if (this.possibleMoves.size() == 0) {
             AlertBox.display("No Move",
                     "You have no available moves, turn is passed to other player...");
-            this.updateTurn(false);
+            turnManager.updateMoves(currentPlayer, false);
             this.updateNextMove();
         }
-        this.updateTurn(true);
+        turnManager.updateMoves(currentPlayer, true);
     }
 
-    /**
-     * determines and updates the player's turn.
-     * @param hasTurn - whether the current player has a turn.
-     */
-    private void updateTurn(boolean hasTurn) {
-        if(currentPlayer.getDisk() == Globals.kBlacks) {
-            this.p1HasTurn = hasTurn;
-        } else if(currentPlayer.getDisk() == Globals.kWhites) {
-            this.p2HasTurn = hasTurn;
-        }
-    }
     /**
      * updates the next player.
      */
@@ -214,6 +199,7 @@ public class ReversiGameController implements Initializable {
         reversiBoard.togglePossibleMoves();
         this.reDraw();
     }
+
     @FXML
     protected void back(javafx.event.ActionEvent event) {
         try {
@@ -228,6 +214,7 @@ public class ReversiGameController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     protected void restart(javafx.event.ActionEvent event) {
         try {

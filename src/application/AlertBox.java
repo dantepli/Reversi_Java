@@ -11,6 +11,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class AlertBox {
+    /**
+     * Displays an alert box.
+     *
+     * @param title   - title of the alert box.
+     * @param message - a message to display.
+     */
     public static void display(String title, String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
