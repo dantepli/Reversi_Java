@@ -14,9 +14,8 @@ public class Board {
 
     /**
      * C'tor.
-     * 
-     * @param newSize
-     *            - a size for the board. board will be newSize x newSize.
+     *
+     * @param newSize - a size for the board. board will be newSize x newSize.
      */
     public Board(int newSize) {
         size = newSize;
@@ -44,7 +43,6 @@ public class Board {
     }
 
     /**
-     * 
      * @return - size of the board.
      */
     public int getSize() {
@@ -52,11 +50,8 @@ public class Board {
     }
 
     /**
-     * 
-     * @param row
-     *            - row index.
-     * @param col
-     *            - column index.
+     * @param row - row index.
+     * @param col - column index.
      * @return - a cell in the corresponding location, null if out of bounds.
      */
     public Cell getCell(int row, int col) {

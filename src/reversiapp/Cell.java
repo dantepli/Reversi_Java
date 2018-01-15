@@ -8,11 +8,9 @@ public class Cell {
 
     /**
      * C'tor. sets the disk to empty.
-     * 
-     * @param newRow
-     *            - row value.
-     * @param newCol
-     *            - column value.
+     *
+     * @param newRow - row value.
+     * @param newCol - column value.
      */
     public Cell(int newRow, int newCol) {
         this.row = newRow;
@@ -21,7 +19,6 @@ public class Cell {
     }
 
     /**
-     * 
      * @return - row value of cell.
      */
     public int getRow() {
@@ -29,24 +26,23 @@ public class Cell {
     }
 
     /**
-     * 
      * @return - column value of cell.
      */
     public int getCol() {
         return this.col;
     }
+
     /**
-     * 
      * @return - disk value of the cell.
      */
     public char getDisk() {
         return this.disk;
     }
+
     /**
      * Setter for disk.
-     * 
-     * @param newDisk
-     *            - new disk value.
+     *
+     * @param newDisk - new disk value.
      */
     public void setDisk(char newDisk) {
         this.disk = newDisk;
@@ -59,13 +55,12 @@ public class Cell {
     public String toString() {
         return Character.toString(this.disk);
     }
-    
+
     public boolean equals(Cell other) {
         return this.row == other.getRow() && this.col == other.getCol();
     }
-    
+
     /**
-     * 
      * @return - String representation of the coordinate of the cell.
      */
     public String toCoordinate() {

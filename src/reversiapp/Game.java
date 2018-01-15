@@ -14,18 +14,15 @@ public class Game {
 
     /**
      * C'tor.
-     * @param newDisplay
-     *            - a display.
-     * @param newBoard
-     *            - a board.
-     * @param newLogic
-     *            - game logic.
-     * @param newP1
-     *            - first player.
-     * @param newP2
-     *            - second player
+     *
+     * @param newDisplay - a display.
+     * @param newBoard   - a board.
+     * @param newLogic   - game logic.
+     * @param newP1      - first player.
+     * @param newP2      - second player
      */
-    public Game(Display newDisplay, Board newBoard, Logic newLogic,
+    public Game(
+            Display newDisplay, Board newBoard, Logic newLogic,
             Player newP1, Player newP2, ScoreTracker newTracker) {
         this.display = newDisplay;
         this.board = newBoard;
@@ -51,9 +48,10 @@ public class Game {
         }
         this.determineHighScore(player1, player2);
     }
-    
+
     /**
      * plays a turn.
+     *
      * @param player - a player to play the turn for.
      */
     private void playTurn(Player player) {
@@ -71,9 +69,10 @@ public class Game {
         changedCell.setDisk(player.getColor());
         logic.flip(player, changedCell, board);
     }
-    
+
     /**
      * Displays the high score.
+     *
      * @param player1 - player 1.
      * @param player2 - player 2.
      */
@@ -101,9 +100,11 @@ public class Game {
         System.out.println("PLAYER 1 SCORE: " + player1Score);
         System.out.println("PLAYER 2 SCORE: " + player2Score);
     }
+
     /**
      * updates the available moves for the player.
-     * @param player - a player.
+     *
+     * @param player   - a player.
      * @param hasMoves - moves value.
      */
     private void updateMoves(Player player, boolean hasMoves) {

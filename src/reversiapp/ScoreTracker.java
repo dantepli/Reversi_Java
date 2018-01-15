@@ -4,12 +4,12 @@ package reversiapp;
 public class ScoreTracker {
     private int player1Score;
     private int player2Score;
-    
+
     public ScoreTracker() {
         player1Score = 2; // initial disks
         player2Score = 2;
     }
-    
+
     public void updateScore(char color, int cellsFlipped) {
         if (color == Globals.kBlacks) {
             player1Score += cellsFlipped + 1;
@@ -19,11 +19,11 @@ public class ScoreTracker {
             player1Score -= cellsFlipped;
         }
     }
-    
+
     public int getPlayer1Score() {
         return player1Score;
     }
-    
+
     public int getPlayer2Score() {
         return player2Score;
     }

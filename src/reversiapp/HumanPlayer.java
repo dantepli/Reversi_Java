@@ -5,18 +5,17 @@ import java.util.Scanner;
 
 public class HumanPlayer implements Player {
     private char color;
-    
+
     /**
-     * 
      * @param newColor - a color for the player.
      */
     public HumanPlayer(char newColor) {
         this.color = newColor;
     }
-    
+
     @Override
     public Cell pickMove(List<Cell> moves) {
-        if(moves.size() == 0) {
+        if (moves.size() == 0) {
             return null;
         }
         int row = 0, col = 0;
@@ -37,7 +36,7 @@ public class HumanPlayer implements Player {
             row -= 1;
             col -= 1;
             cell = new Cell(row, col);
-        } while(!cellValidity(cell, moves));
+        } while (!cellValidity(cell, moves));
         // ------------------
         return cell;
     }
@@ -46,23 +45,23 @@ public class HumanPlayer implements Player {
     public char getColor() {
         return this.color;
     }
-    
+
     /**
-     * 
-     * @param cell - a chosen cell.
+     * @param cell  - a chosen cell.
      * @param moves - a list of possible moves.
      * @return - true if the chosen cell is valid.
      */
     private boolean cellValidity(Cell cell, List<Cell> moves) {
-        for(Cell move : moves) {
-            if(cell.equals(move)) {
+        for (Cell move : moves) {
+            if (cell.equals(move)) {
                 return true;
             }
         }
         return false;
     }
+
     public String playerName() {
-        if(this.color == Globals.kBlacks) {
+        if (this.color == Globals.kBlacks) {
             return "First Player";
         } else {
             return "Second Player";

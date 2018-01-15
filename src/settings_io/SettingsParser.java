@@ -9,9 +9,7 @@ public class SettingsParser {
     public static final String kWhite = "White";
 
     /**
-     * 
-     * @param startingStr
-     *            - a starting player value line.
+     * @param startingStr - a starting player value line.
      * @return - true if valid.
      */
     public static boolean isStartingPlayerValid(String startingStr) {
@@ -19,9 +17,7 @@ public class SettingsParser {
     }
 
     /**
-     * 
-     * @param colorStr
-     *            - a color string.
+     * @param colorStr - a color string.
      * @return - true if a valid color representation.
      */
     public static boolean isPlayerColorValid(String colorStr) {
@@ -35,7 +31,6 @@ public class SettingsParser {
     }
 
     /**
-     *
      * @param boardSizeStr - a board size string representation.
      * @return - true if the board size is valid.
      */
@@ -55,9 +50,7 @@ public class SettingsParser {
     }
 
     /**
-     * 
-     * @param startingStr
-     *            - a starting value line.
+     * @param startingStr - a starting value line.
      * @return - StartingPlayer enum representation.
      */
     public static StartingPlayer parseStartingPlayer(String startingStr) {
@@ -68,13 +61,14 @@ public class SettingsParser {
         }
         return null;
     }
+
     public static Color parsePlayerColor(String colorStr) {
         Color color;
         try {
             color = Color.web(colorStr);
         } catch (Exception e) {
             System.err.println("Invalid color value. " + e.getMessage());
-            if(!colorError) {
+            if (!colorError) {
                 // first time error parsing
                 color = Color.BLACK;
                 colorError = true;

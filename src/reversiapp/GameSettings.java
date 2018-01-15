@@ -38,7 +38,7 @@ public class GameSettings {
     }
 
     // String setters
-    
+
     public void setStartingPlayer(String startingPlayer) {
         this.startingPlayer = startingPlayer;
     }
@@ -56,9 +56,8 @@ public class GameSettings {
     }
 
     // Representation Getters
-    
+
     /**
-     * 
      * @return - enum representation of the starting player.
      */
     public StartingPlayer getStartingPlayer() {
@@ -66,7 +65,6 @@ public class GameSettings {
     }
 
     /**
-     * 
      * @return - color representation of player 1's color.
      */
     public Color getPlayer1Color() {
@@ -74,7 +72,6 @@ public class GameSettings {
     }
 
     /**
-     * 
      * @return - color representation of player 2's color.
      */
     public Color getPlayer2Color() {
@@ -82,7 +79,6 @@ public class GameSettings {
     }
 
     /**
-     * 
      * @return - int representation of player 2's color.
      */
     public int getBoardSize() {

@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ReversiGameController implements Initializable {
-    private GameSettings gameSettings;
     private Logic logic;
     private Board board;
     private Player player1;
@@ -23,7 +22,7 @@ public class ReversiGameController implements Initializable {
     private Player currentPlayer;
     private GuiReversiBoard reversiBoard;
     private ScoreTracker scoreTracker;
-
+    private List<Cell> possibleMoves;
     @FXML
     private HBox root;
     @FXML
@@ -39,11 +38,11 @@ public class ReversiGameController implements Initializable {
      * C'tor.
      * initializes the necessary members for the reversi game.
      */
-    public ReversiGameController () {
-        this.gameSettings = SettingsReader.readFile();
+    public ReversiGameController() {
+        GameSettings gameSettings = SettingsReader.readFile();
         this.player1 = new HumanPlayer(Globals.kBlacks);
         this.player2 = new HumanPlayer(Globals.kWhites);
-        if (this.gameSettings.getStartingPlayer() == StartingPlayer.BLACK) {
+        if (gameSettings.getStartingPlayer() == StartingPlayer.BLACK) {
             currentPlayer = this.player1;
         } else {
             currentPlayer = this.player2;
@@ -55,111 +54,106 @@ public class ReversiGameController implements Initializable {
     }
 
     @Override
-    public void initialize(URL location, ResourceBundle
+    /**
+     * initializes the listeners and fields in the Controller.
+     */
+    public void initialize(
+            URL location, ResourceBundle
             resources) {
+        this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
+        // init text fields on the side.
         playerTurn.setText("Current Player: " + currentPlayer.playerName());
         player1Score.setText("First Player Score: " + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score: " + scoreTracker.getPlayer2Score());
-        this.reversiBoard.setPrefWidth(400);
-        this.reversiBoard.setPrefHeight(400);
+        reversiBoard.setPrefWidth(400);
+        reversiBoard.setPrefHeight(400);
         root.getChildren().add(0, reversiBoard);
+        // adds resize listeners.
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
             double boardNewWidth = newValue.doubleValue() - 180;
             reversiBoard.setPrefWidth(boardNewWidth);
-            reversiBoard.draw();
+            reversiBoard.draw(this.possibleMoves);
         });
         root.heightProperty().addListener((observable, oldValue, newValue) -> {
             System.out.println(newValue.doubleValue());
             reversiBoard.setPrefHeight(newValue.doubleValue());
-            reversiBoard.draw();
+            reversiBoard.draw(this.possibleMoves);
         });
+        // adds mouse click event.
         reversiBoard.addEventHandler(MouseEvent.MOUSE_CLICKED, event -> {
+            System.out.println(event.getX() + " " + event.getY() + " " + "EVENT CORD");
             Cell picked = reversiBoard.clicked(event);
             event.consume();
-            if(this.playTurn(currentPlayer, picked)) {
-                updatePlayer();
+            if (this.playTurn(currentPlayer, picked)) {
+                updateNextMove();
             }
         });
     }
 
     /**
+     * plays a turn.
      *
      * @param player - current player.
      * @param picked - a picked cell.
-     * @return
+     * @return - true if the move was successful (player had no moves,
+     * or a cell was flipped).
      */
     private boolean playTurn(Player player, Cell picked) {
-        List<Cell> moves = logic.getPossibleMoves(player, this.board);
-        if (moves.size() == 0) {
+        if (this.possibleMoves.size() == 0) {
             // text warning
             return true;
         }
-        for(Cell move : moves) {
-            // sets the disks as flip potential.
-            board.getCell(move.getRow(), move.getCol()).setDisk(Globals.kToFlip);
-        }
-//        this.reDraw();
-        if (moves.size() == 0) {
-            // text warning
-            return true;
-        }
-        for(Cell move : moves) {
-            // sets the disks back to empty
-            board.getCell(move.getRow(), move.getCol()).setDisk(Globals.kEmpty);
-        }
-        if(cellValidity(picked, moves)) {
+        if (cellValidity(picked, this.possibleMoves)) {
             Cell changedCell = board.getCell(picked.getRow(), picked.getCol());
             changedCell.setDisk(player.getColor());
             logic.flip(player, changedCell, this.board);
-            this.reDraw();
             return true;
         }
         return false;
 
     }
+
     /**
-     *
-     * @param cell - a chosen cell.
+     * @param cell  - a chosen cell.
      * @param moves - a list of possible moves.
      * @return - true if the chosen cell is valid.
      */
     private boolean cellValidity(Cell cell, List<Cell> moves) {
-        for(Cell move : moves) {
-            if(cell.equals(move)) {
+        for (Cell move : moves) {
+            if (cell.equals(move)) {
                 return true;
             }
         }
         return false;
     }
 
+    /**
+     * redraws the board.
+     */
     private void reDraw() {
-        reversiBoard.draw();
+        reversiBoard.draw(this.possibleMoves);
     }
 
-    public void updatePlayer() {
-        if(currentPlayer.getColor() == this.player1.getColor()) {
+    /**
+     * updates the next move, changes the player and updates the text
+     * fields.
+     */
+    public void updateNextMove() {
+        if (currentPlayer.getColor() == this.player1.getColor()) {
             this.currentPlayer = this.player2;
-        } else if(currentPlayer.getColor() == this.player2.getColor()) {
+        } else if (currentPlayer.getColor() == this.player2.getColor()) {
             this.currentPlayer = this.player1;
         }
         playerTurn.setText("Current Player: " + currentPlayer.playerName());
         player1Score.setText("First Player Score:" + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score:" + scoreTracker.getPlayer2Score());
+        this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
+        this.reDraw();
     }
+
     @FXML
     protected void showMoves(javafx.event.ActionEvent event) {
-        List<Cell> moves = logic.getPossibleMoves(currentPlayer, this.board);
-        if (moves.size() == 0) {
-            // text warning
-        }
-        for(Cell move : moves) {
-            // sets the disks as flip potential.
-            board.getCell(move.getRow(), move.getCol()).setDisk(Globals.kToFlip);
-        }
+        reversiBoard.togglePossibleMoves();
         this.reDraw();
-        for(Cell move : moves) {
-            // sets the disks back to empty
-            board.getCell(move.getRow(), move.getCol()).setDisk(Globals.kEmpty);
-        }
     }
 }

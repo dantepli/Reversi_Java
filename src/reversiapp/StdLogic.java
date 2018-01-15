@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StdLogic implements Logic {
-    private final int dx[] = { 1, 1, 0, -1, -1, -1, 0, 1 };
-    private final int dy[] = { 0, 1, 1, 1, 0, -1, -1, -1 };
+    private final int dx[] = {1, 1, 0, -1, -1, -1, 0, 1};
+    private final int dy[] = {0, 1, 1, 1, 0, -1, -1, -1};
     private final int kNumOfDirs = 8;
     private ScoreTracker tracker;
-    
+
     public StdLogic(ScoreTracker newTracker) {
         this.tracker = newTracker;
     }
@@ -86,13 +86,9 @@ public class StdLogic implements Logic {
     }
 
     /**
-     * 
-     * @param opponentDisk
-     *            - opponent's disk.
-     * @param cell
-     *            - a given cell to check for.
-     * @param board
-     *            - a board.
+     * @param opponentDisk - opponent's disk.
+     * @param cell         - a given cell to check for.
+     * @param board        - a board.
      * @return - true if possible to place player's disk.
      */
     private boolean isPossibleMove(char opponentDisk, Cell cell, Board board) {
@@ -112,7 +108,7 @@ public class StdLogic implements Logic {
             if (disk == opponentDisk) {
                 // we are not out of bounds, and there is an
                 // opponent disk on the cell, continue checking.
-                int rowCol[] = { row, col };
+                int rowCol[] = {row, col};
                 if (!iterateOpponentDisks(dx[i], dy[i], rowCol, opponentDisk,
                         board)) {
                     row = rowCol[0]; // retrieve updated row val
@@ -133,13 +129,9 @@ public class StdLogic implements Logic {
     }
 
     /**
-     * 
-     * @param row
-     *            - row value.
-     * @param col
-     *            - column value.
-     * @param board
-     *            - a board.
+     * @param row   - row value.
+     * @param col   - column value.
+     * @param board - a board.
      * @return - true if out of the bounds of the board.
      */
     private boolean outOfBounds(int row, int col, Board board) {
@@ -148,21 +140,16 @@ public class StdLogic implements Logic {
     }
 
     /**
-     * 
-     * @param dx
-     *            - x direction.
-     * @param dy
-     *            - y direction.
-     * @param rowCol
-     *            - row and column values.
-     * @param opponentDisk
-     *            - opponent's disk.
-     * @param board
-     *            - a board.
+     * @param dx           - x direction.
+     * @param dy           - y direction.
+     * @param rowCol       - row and column values.
+     * @param opponentDisk - opponent's disk.
+     * @param board        - a board.
      * @return - true if we iterated through the opponents disks without
-     *         reaching the end of the board.
+     * reaching the end of the board.
      */
-    private boolean iterateOpponentDisks(int dx, int dy, int rowCol[],
+    private boolean iterateOpponentDisks(
+            int dx, int dy, int rowCol[],
             char opponentDisk, Board board) {
         Cell currentCheck = board.getCell(rowCol[0], rowCol[1]);
         char disk = currentCheck.getDisk();
@@ -181,9 +168,7 @@ public class StdLogic implements Logic {
     }
 
     /**
-     * 
-     * @param playerCell
-     *            - a current player cell disk.
+     * @param playerCell - a current player cell disk.
      * @return - the opponent's player cell disk.
      */
     private char opponentCell(char playerCell) {

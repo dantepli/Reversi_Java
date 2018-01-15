@@ -7,9 +7,8 @@ public class ConsoleDisplay implements Display {
 
     /**
      * displays the board in console.
-     * 
-     * @param board
-     *            - a board.
+     *
+     * @param board - a board.
      */
     @Override
     public void displayBoard(Board board) {
@@ -37,14 +36,13 @@ public class ConsoleDisplay implements Display {
 
     /**
      * displays the list of moves for the player in console.
-     * 
-     * @param player
-     *            - a player.
-     * @param moves
-     *            - list of moves for the player.
+     *
+     * @param player - a player.
+     * @param moves  - list of moves for the player.
      */
     @Override
-    public void displayHumanPlayerChoiceMessage(Player player,
+    public void displayHumanPlayerChoiceMessage(
+            Player player,
             List<Cell> moves) {
         System.out.println(player.getColor() + ": " + "Your Turn.");
         System.out.print("Your possible moves are: ");
@@ -58,9 +56,8 @@ public class ConsoleDisplay implements Display {
 
     /**
      * displays a no moves message for the player in console.
-     * 
-     * @param player
-     *            - a player.
+     *
+     * @param player - a player.
      */
     @Override
     public void displayNoMoves(Player player) {
@@ -70,7 +67,7 @@ public class ConsoleDisplay implements Display {
 
     /**
      * displays the scores of the players.
-     * 
+     *
      * @param player1
      * @param player2
      * @param board
@@ -78,7 +75,8 @@ public class ConsoleDisplay implements Display {
      * @param player2Score
      */
     @Override
-    public void displayEndScreen(Player player1, Player player2, Board board,
+    public void displayEndScreen(
+            Player player1, Player player2, Board board,
             int player1Score, int player2Score) {
         if (player1Score + player2Score == board.getSize() * board.getSize()) {
             // board is full.
