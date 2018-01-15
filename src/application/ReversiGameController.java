@@ -85,6 +85,7 @@ public class ReversiGameController implements Initializable {
             Cell picked = reversiBoard.clicked(event);
             event.consume();
             if (this.playTurn(currentPlayer, picked)) {
+                // turn was valid.
                 updateNextMove();
             }
         });
@@ -104,6 +105,7 @@ public class ReversiGameController implements Initializable {
             return true;
         }
         if (cellValidity(picked, this.possibleMoves)) {
+            // cell is valid to flip.
             Cell changedCell = board.getCell(picked.getRow(), picked.getCol());
             changedCell.setDisk(player.getColor());
             logic.flip(player, changedCell, this.board);
@@ -138,17 +140,31 @@ public class ReversiGameController implements Initializable {
      * updates the next move, changes the player and updates the text
      * fields.
      */
-    public void updateNextMove() {
+    private void updateNextMove() {
+        this.updatePlayer();
+        this.updateTextFields();
+        this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
+        this.reDraw();
+    }
+
+    /**
+     * updates the next player.
+     */
+    private void updatePlayer() {
         if (currentPlayer.getColor() == this.player1.getColor()) {
             this.currentPlayer = this.player2;
         } else if (currentPlayer.getColor() == this.player2.getColor()) {
             this.currentPlayer = this.player1;
         }
+    }
+
+    /**
+     * updates the text fields.
+     */
+    private void updateTextFields() {
         playerTurn.setText("Current Player: " + currentPlayer.playerName());
         player1Score.setText("First Player Score:" + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score:" + scoreTracker.getPlayer2Score());
-        this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
-        this.reDraw();
     }
 
     @FXML
