@@ -1,4 +1,4 @@
 Starting_Player:Black
-Player1_Color:0x000000ff
-Player2_Color:0xffffffff
+Player1_Color:0xb380b3ff
+Player2_Color:0x4d804dff
 Board_Size:4

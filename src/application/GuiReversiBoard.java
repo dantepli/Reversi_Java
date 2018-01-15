@@ -49,7 +49,7 @@ public class GuiReversiBoard extends GridPane {
         int bSize = board.getSize();
         int cellHeight = height / bSize;
         int cellWidth = width / bSize;
-        int diskRadius = Math.min(cellHeight, cellWidth) / 2;
+        int diskRadius = Math.min(cellHeight, cellWidth) / 3;
         Color p1Color = gameSettings.getPlayer1Color();
         Color p2Color = gameSettings.getPlayer2Color();
         for (int i = 0; i < bSize; i++) {

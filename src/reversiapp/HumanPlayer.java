@@ -1,15 +1,19 @@
 package reversiapp;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class HumanPlayer implements Player {
-    private char color;
+    private char disk;
+    private Color color;
 
     /**
-     * @param newColor - a color for the player.
+     * @param newDisk - a color for the player.
      */
-    public HumanPlayer(char newColor) {
+    public HumanPlayer(char newDisk, Color newColor) {
+        this.disk = newDisk;
         this.color = newColor;
     }
 
@@ -42,8 +46,8 @@ public class HumanPlayer implements Player {
     }
 
     @Override
-    public char getColor() {
-        return this.color;
+    public char getDisk() {
+        return this.disk;
     }
 
     /**
@@ -61,10 +65,15 @@ public class HumanPlayer implements Player {
     }
 
     public String playerName() {
-        if (this.color == Globals.kBlacks) {
+        if (this.disk == Globals.kBlacks) {
             return "First Player";
         } else {
             return "Second Player";
         }
+    }
+
+    @Override
+    public Color getColor() {
+        return this.color;
     }
 }

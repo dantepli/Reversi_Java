@@ -44,7 +44,7 @@ public class ConsoleDisplay implements Display {
     public void displayHumanPlayerChoiceMessage(
             Player player,
             List<Cell> moves) {
-        System.out.println(player.getColor() + ": " + "Your Turn.");
+        System.out.println(player.getDisk() + ": " + "Your Turn.");
         System.out.print("Your possible moves are: ");
         for (Cell cell : moves) {
             System.out.print(cell.toCoordinate() + " ");
@@ -61,7 +61,7 @@ public class ConsoleDisplay implements Display {
      */
     @Override
     public void displayNoMoves(Player player) {
-        System.out.println(player.getColor()
+        System.out.println(player.getDisk()
                 + ": You have no availiable moves, turn is passed to the other player.");
     }
 
@@ -83,9 +83,9 @@ public class ConsoleDisplay implements Display {
             System.out.println("No more possible moves.");
         }
         if (player1Score > player2Score) {
-            System.out.println(player1.getColor() + ": You Won!");
+            System.out.println(player1.getDisk() + ": You Won!");
         } else {
-            System.out.println(player2.getColor() + ": You Won!");
+            System.out.println(player2.getDisk() + ": You Won!");
         }
     }
 }

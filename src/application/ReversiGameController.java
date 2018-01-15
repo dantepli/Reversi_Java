@@ -1,12 +1,19 @@
 package application;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 import reversiapp.*;
 import settings_io.SettingsReader;
 import settings_io.StartingPlayer;
@@ -24,16 +31,25 @@ public class ReversiGameController implements Initializable {
     private GuiReversiBoard reversiBoard;
     private ScoreTracker scoreTracker;
     private List<Cell> possibleMoves;
+    private boolean p1HasTurn = true;
+    private boolean p2HasTurn = true;
+
     @FXML
     private HBox root;
     @FXML
-    private Button sMoves;
+    private RadioButton sMoves;
     @FXML
     private Label playerTurn;
     @FXML
     private Label player1Score;
     @FXML
     private Label player2Score;
+    @FXML
+    private Button back;
+    @FXML
+    private Button restart;
+    @FXML
+    private Circle playerColor;
 
     /**
      * C'tor.
@@ -41,8 +57,8 @@ public class ReversiGameController implements Initializable {
      */
     public ReversiGameController() {
         GameSettings gameSettings = SettingsReader.readFile();
-        this.player1 = new HumanPlayer(Globals.kBlacks);
-        this.player2 = new HumanPlayer(Globals.kWhites);
+        this.player1 = new HumanPlayer(Globals.kBlacks, gameSettings.getPlayer1Color());
+        this.player2 = new HumanPlayer(Globals.kWhites, gameSettings.getPlayer2Color());
         if (gameSettings.getStartingPlayer() == StartingPlayer.BLACK) {
             currentPlayer = this.player1;
         } else {
@@ -63,7 +79,8 @@ public class ReversiGameController implements Initializable {
             resources) {
         this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
         // init text fields on the side.
-        playerTurn.setText("Current Player: " + currentPlayer.playerName());
+        playerColor.setFill(currentPlayer.getColor());
+        playerTurn.setText("Current Player:");
         player1Score.setText("First Player Score: " + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score: " + scoreTracker.getPlayer2Score());
         reversiBoard.setPrefWidth(Main.kWidth / 2);
@@ -71,7 +88,7 @@ public class ReversiGameController implements Initializable {
         root.getChildren().add(0, reversiBoard);
         // adds resize listeners.
         root.widthProperty().addListener((observable, oldValue, newValue) -> {
-            double boardNewWidth = newValue.doubleValue() - 200;
+            double boardNewWidth = newValue.doubleValue() - 220;
             reversiBoard.setPrefWidth(boardNewWidth);
             reversiBoard.draw(this.possibleMoves);
         });
@@ -102,14 +119,12 @@ public class ReversiGameController implements Initializable {
      */
     private boolean playTurn(Player player, Cell picked) {
         if (this.possibleMoves.size() == 0) {
-            AlertBox.display("No Move",
-                    "You have no available moves, turn is passed to other player...");
             return true;
         }
         if (cellValidity(picked, this.possibleMoves)) {
             // cell is valid to flip.
             Cell changedCell = board.getCell(picked.getRow(), picked.getCol());
-            changedCell.setDisk(player.getColor());
+            changedCell.setDisk(player.getDisk());
             logic.flip(player, changedCell, this.board);
             return true;
         }
@@ -147,15 +162,39 @@ public class ReversiGameController implements Initializable {
         this.updateTextFields();
         this.possibleMoves = logic.getPossibleMoves(currentPlayer, this.board);
         this.reDraw();
+        if(!this.p1HasTurn && !this.p2HasTurn ||
+                scoreTracker.getPlayer1Score() + scoreTracker.getPlayer2Score() == board.getSize() * board.getSize()) {
+            // game over.
+            AlertBox.display("WICTORY", "CYKA BLAT");
+            System.exit(0);
+        }
+        if(this.possibleMoves.size() == 0) {
+            AlertBox.display("No Move",
+                    "You have no available moves, turn is passed to other player...");
+            this.updateTurn(false);
+            this.updateNextMove();
+        }
+        this.updateTurn(true);
     }
 
+    /**
+     * determines and updates the player's turn.
+     * @param hasTurn - whether the current player has a turn.
+     */
+    private void updateTurn(boolean hasTurn) {
+        if(currentPlayer.getDisk() == Globals.kBlacks) {
+            this.p1HasTurn = hasTurn;
+        } else if(currentPlayer.getDisk() == Globals.kWhites) {
+            this.p2HasTurn = hasTurn;
+        }
+    }
     /**
      * updates the next player.
      */
     private void updatePlayer() {
-        if (currentPlayer.getColor() == this.player1.getColor()) {
+        if (currentPlayer.getDisk() == this.player1.getDisk()) {
             this.currentPlayer = this.player2;
-        } else if (currentPlayer.getColor() == this.player2.getColor()) {
+        } else if (currentPlayer.getDisk() == this.player2.getDisk()) {
             this.currentPlayer = this.player1;
         }
     }
@@ -164,7 +203,8 @@ public class ReversiGameController implements Initializable {
      * updates the text fields.
      */
     private void updateTextFields() {
-        playerTurn.setText("Current Player: " + currentPlayer.playerName());
+        playerColor.setFill(currentPlayer.getColor());
+        playerTurn.setText("Current Player: ");
         player1Score.setText("First Player Score:" + scoreTracker.getPlayer1Score());
         player2Score.setText("Second Player Score:" + scoreTracker.getPlayer2Score());
     }
@@ -173,5 +213,32 @@ public class ReversiGameController implements Initializable {
     protected void showMoves(javafx.event.ActionEvent event) {
         reversiBoard.togglePossibleMoves();
         this.reDraw();
+    }
+    @FXML
+    protected void back(javafx.event.ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
+            Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+            stage.setTitle("Reversi");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    @FXML
+    protected void restart(javafx.event.ActionEvent event) {
+        try {
+            Parent parent = FXMLLoader.load(getClass().getResource("reversiGame.fxml"));
+            Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setTitle("Reversi Game");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

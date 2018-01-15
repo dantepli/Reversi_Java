@@ -74,7 +74,7 @@ public class SettingsController {
     protected void back(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-            Scene scene = new Scene(parent, 400, 350);
+            Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             stage.setTitle("Settings");

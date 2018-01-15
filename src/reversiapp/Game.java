@@ -66,7 +66,7 @@ public class Game {
         Cell cell = player.pickMove(moves);
         // EVENT ON CELL CLICK
         Cell changedCell = board.getCell(cell.getRow(), cell.getCol());
-        changedCell.setDisk(player.getColor());
+        changedCell.setDisk(player.getDisk());
         logic.flip(player, changedCell, board);
     }
 
@@ -108,7 +108,7 @@ public class Game {
      * @param hasMoves - moves value.
      */
     private void updateMoves(Player player, boolean hasMoves) {
-        char disk = player.getColor();
+        char disk = player.getDisk();
         if (disk == Globals.kWhites) {
             this.player2Moves = hasMoves;
         } else if (disk == Globals.kBlacks) {

@@ -17,7 +17,7 @@ public class StdLogic implements Logic {
     public List<Cell> getPossibleMoves(Player player, Board board) {
         List<Cell> moves = new ArrayList<Cell>();
         int size = board.getSize();
-        char opponentDisk = opponentCell(player.getColor());
+        char opponentDisk = opponentCell(player.getDisk());
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 Cell current = board.getCell(i, j);
@@ -34,7 +34,7 @@ public class StdLogic implements Logic {
 
     @Override
     public void flip(Player player, Cell cell, Board board) {
-        char opponentDisk = opponentCell(player.getColor());
+        char opponentDisk = opponentCell(player.getDisk());
         List<Cell> flips = new ArrayList<Cell>();
         List<Cell> temp = new ArrayList<Cell>();
         int row = 0, col = 0;
@@ -80,9 +80,9 @@ public class StdLogic implements Logic {
         }
         for (int i = 0; i < flips.size(); i++) {
             System.out.println(flips.get(i) + " ");
-            flips.get(i).setDisk(player.getColor());
+            flips.get(i).setDisk(player.getDisk());
         }
-        tracker.updateScore(player.getColor(), flips.size());
+        tracker.updateScore(player.getDisk(), flips.size());
     }
 
     /**

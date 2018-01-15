@@ -24,7 +24,7 @@ public class MainMenuController {
             Parent parent = FXMLLoader.load(getClass().getResource("reversiGame.fxml"));
             Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setTitle("Reversi game");
+            stage.setTitle("Reversi Game");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

@@ -1,5 +1,7 @@
 package reversiapp;
 
+import javafx.scene.paint.Color;
+
 import java.util.List;
 
 public interface Player {
@@ -12,10 +14,11 @@ public interface Player {
     /**
      * @return - the color of the player.
      */
-    public char getColor();
+    public char getDisk();
 
     /**
      * @return
      */
     public String playerName();
+    public Color getColor();
 }
