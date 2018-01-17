@@ -5,6 +5,10 @@
 -fx-font-size: 12px;
 -fx-font-weight: bold;
 }
+.text {
+-fx-font-size: 12px;
+-fx-font-weight: bold;
+}
 .button {
 -fx-text-fill: white;
 -fx-font-weight: bold;

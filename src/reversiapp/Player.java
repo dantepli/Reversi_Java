@@ -6,18 +6,12 @@ import java.util.List;
 
 public interface Player {
     /**
-     * @param moves - a list of possible moves.
-     * @return - a picked cell to place the disk.
-     */
-    Cell pickMove(List<Cell> moves);
-
-    /**
      * @return - disk type.
      */
     char getDisk();
 
     /**
-     * @return
+     * @return - string representation of the player.
      */
     String playerName();
 

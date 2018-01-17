@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,6 +22,7 @@ import settings_io.SettingsReader;
 import settings_io.SettingsWriter;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import static reversiapp.Globals.kBlacks;
@@ -33,7 +35,7 @@ public class SettingsController {
     @FXML
     private RadioButton secondPlayer;
     @FXML
-    private Text messageText;
+    private Label messageText;
     @FXML
     private ColorPicker firstPlayerColor;
     @FXML
@@ -44,6 +46,7 @@ public class SettingsController {
     @FXML
     private void initialize() {
         GameSettings gameSettings = SettingsReader.readFile();
+        messageText.setPrefWidth(500);
         boardSize.setItems(sizes);
         boardSize.setValue(gameSettings.getBoardSizeStr());
         firstPlayerColor.setValue(gameSettings.getPlayer1Color());

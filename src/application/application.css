@@ -1,5 +1,6 @@
 .root {
-    -fx-background-image: url("sddd.jpg")
+    -fx-background-image: url("Reversi.jpg");
+    -fx-background-size: stretch;
 }
 .label {
 -fx-font-size: 12px;
@@ -14,12 +15,4 @@
 -fx-font-size: 32px;
 -fx-font-family: Arial;
 -fx-fill: rgb(85,87,83);
-}
-.setStyle{
-    -fx-border-color: lightblue;
-    -fx-font-size: 20;
-    -fx-border-insets: -5;
-    -fx-border-radius: 5;
-    -fx-border-style: dotted;
-    -fx-border-width: 2;
 }

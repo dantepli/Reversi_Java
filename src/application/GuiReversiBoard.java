@@ -34,7 +34,7 @@ public class GuiReversiBoard extends GridPane {
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
-        this.showPossibleMoves = false;
+        this.showPossibleMoves = true;
     }
 
     /**
