@@ -11,11 +11,17 @@ import javafx.stage.Stage;
 
 public class MainMenuController {
     @FXML
+    /**
+     * Exits the application when the exit button is pressed.
+     */
     protected void exit(javafx.event.ActionEvent event) {
         Platform.exit();
     }
 
     @FXML
+    /**
+     * Starts the game when the play button is pressed.
+     */
     protected void play(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("reversiGame.fxml"));
@@ -30,6 +36,9 @@ public class MainMenuController {
     }
 
     @FXML
+    /**
+     * Opens up the settings when the settings button is pressed.
+     */
     protected void settings(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("settings.fxml"));

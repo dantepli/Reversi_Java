@@ -1,13 +1,13 @@
 package settings_io;
 
+import reversiapp.GameSettings;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
-
-import reversiapp.GameSettings;
 
 public class SettingsWriter {
 

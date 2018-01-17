@@ -1,88 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.shape.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.Text?>
 <?import javafx.scene.shape.Circle?>
-
-<HBox fx:id="root" fillHeight="false" spacing="20.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReversiGameController">
+<?import javafx.scene.text.Font?>
+<HBox fx:id="root" fillHeight="false" spacing="20.0" xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ReversiGameController">
     <children>
         <VBox spacing="10">
             <children>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                      <Label fx:id="playerTurn">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font>
-                  </Label>
-                      <Circle fx:id="playerColor" radius="10" stroke="#121212f0" strokeWidth="2.0" GridPane.columnIndex="1" />
-               </children>
-            </GridPane>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="0.0" prefWidth="38.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="124.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                      <Label fx:id="player1Score" prefHeight="15.0" prefWidth="0.0" GridPane.columnIndex="1">
-                          <font>
-                              <Font name="System Bold" size="15.0" />
-                          </font>
-                  </Label>
-                  <Circle fx:id="playerColor1" radius="15.0" stroke="#121212f0" strokeWidth="2.0" />
-               </children>
-            </GridPane>
-            <GridPane>
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="0.0" prefWidth="37.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="125.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Circle fx:id="playerColor2" radius="15.0" stroke="#121212f0" strokeWidth="2.0" />
-                      <Label fx:id="player2Score" prefHeight="19.0" prefWidth="0.0" GridPane.columnIndex="1">
-                          <font>
-                              <Font name="System Bold" size="15.0" />
-                          </font>
-                  </Label>
-               </children>
-            </GridPane>
-            <VBox alignment="CENTER" spacing="280.0">
-               <children>
-                      <RadioButton fx:id="sMoves" contentDisplay="RIGHT" onAction="#showMoves" text="Show Possible Moves" textAlignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="13.0" />
-                     </font></RadioButton>
-                  <VBox alignment="CENTER" spacing="15.0">
-                     <children>
-                            <Button fx:id="restart" onAction="#restart" text="Restart" />
-                            <Button fx:id="back" onAction="#back" text="Main Menu" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="0.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="playerTurn">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                        <Circle fx:id="playerColor" radius="10" stroke="#121212f0" strokeWidth="2.0"
+                                GridPane.columnIndex="1"/>
+                    </children>
+                </GridPane>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="0.0" prefWidth="38.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="131.0" minWidth="10.0" prefWidth="124.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Label fx:id="player1Score" prefHeight="15.0" prefWidth="0.0" GridPane.columnIndex="1">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                        <Circle fx:id="playerColor1" radius="15.0" stroke="#121212f0" strokeWidth="2.0"/>
+                    </children>
+                </GridPane>
+                <GridPane>
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="86.0" minWidth="0.0" prefWidth="37.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="129.0" minWidth="10.0" prefWidth="125.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Circle fx:id="playerColor2" radius="15.0" stroke="#121212f0" strokeWidth="2.0"/>
+                        <Label fx:id="player2Score" prefHeight="19.0" prefWidth="0.0" GridPane.columnIndex="1">
+                            <font>
+                                <Font name="System Bold" size="15.0"/>
+                            </font>
+                        </Label>
+                    </children>
+                </GridPane>
+                <VBox alignment="CENTER" spacing="280.0">
+                    <children>
+                        <RadioButton fx:id="sMoves" contentDisplay="RIGHT" onAction="#showMoves"
+                                     text="Show Possible Moves" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="13.0"/>
+                            </font>
+                        </RadioButton>
+                        <VBox alignment="CENTER" spacing="15.0">
+                            <children>
+                                <Button fx:id="restart" onAction="#restart" text="Restart"/>
+                                <Button fx:id="back" onAction="#back" text="Main Menu"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
             </children>
         </VBox>
     </children>

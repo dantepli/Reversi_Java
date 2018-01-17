@@ -1,8 +1,8 @@
 package settings_io;
 
-import java.io.*;
-
 import reversiapp.GameSettings;
+
+import java.io.*;
 
 public class SettingsReader {
     public static final String kLocation = "settings.txt";
@@ -25,7 +25,6 @@ public class SettingsReader {
         try {
             reader.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return settings;
@@ -63,6 +62,12 @@ public class SettingsReader {
         return line;
     }
 
+    /**
+     * updates the settings object.
+     *
+     * @param split    - a split string.
+     * @param settings - a settings object.
+     */
     private static void updateSetting(String[] split, GameSettings settings) {
         String field = split[0];
         String value = split[1];

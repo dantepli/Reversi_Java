@@ -2,7 +2,6 @@ package application;
 
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -22,6 +21,11 @@ public class GuiReversiBoard extends GridPane {
     private GameSettings gameSettings;
     private boolean showPossibleMoves;
 
+    /**
+     * C'tor.
+     *
+     * @param board - a game board.
+     */
     public GuiReversiBoard(Board board) {
         this.board = board;
         this.gameSettings = SettingsReader.readFile();
@@ -52,7 +56,8 @@ public class GuiReversiBoard extends GridPane {
         Color p2Color = gameSettings.getPlayer2Color();
         for (int i = 0; i < bSize; i++) {
             for (int j = 0; j < bSize; j++) {
-                Rectangle rect = new Rectangle(cellWidth, cellHeight, Color.LEMONCHIFFON);
+                Rectangle rect = new Rectangle(cellWidth, cellHeight,
+                        Color.LEMONCHIFFON);
                 rect.setStroke(Color.BLACK);
                 this.add(rect, j, i);
                 if (this.board.getCell(i, j).getDisk() == Globals.kEmpty) {
@@ -87,15 +92,14 @@ public class GuiReversiBoard extends GridPane {
      * @return - a cell location in the board.
      */
     public Cell clicked(MouseEvent event) {
-        int x = (int) event.getX();
-        int y = (int) event.getY();
-        int prefHeight = (int) this.getPrefHeight();
-        int prefWidth = (int) this.getPrefWidth();
-        int cellHeight = (prefHeight / board.getSize());
-        int cellWidth = ((prefWidth) / board.getSize());
-        int i = x / cellWidth;
-        int j = y / cellHeight;
-        System.out.println(i + " " + j);
+        double x = event.getX();
+        double y = event.getY();
+        double prefHeight = this.getPrefHeight();
+        double prefWidth = this.getPrefWidth();
+        double cellHeight = (prefHeight / board.getSize());
+        double cellWidth = ((prefWidth) / board.getSize());
+        int i = (int) x / (int) cellWidth;
+        int j = (int) y / (int) cellHeight;
         return new Cell(j, i);
     }
 

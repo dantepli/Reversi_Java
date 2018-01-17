@@ -62,12 +62,16 @@ public class SettingsParser {
         return null;
     }
 
+    /**
+     * @param colorStr - a color string.
+     * @return - the Color object corresponding with the string, if string is invalid return black/white according
+     * to calls. (black first time, white second time - default colors).
+     */
     public static Color parsePlayerColor(String colorStr) {
         Color color;
         try {
             color = Color.web(colorStr);
         } catch (Exception e) {
-            System.err.println("Invalid color value. " + e.getMessage());
             if (!colorError) {
                 // first time error parsing
                 color = Color.BLACK;
@@ -80,14 +84,16 @@ public class SettingsParser {
         return color;
     }
 
+    /**
+     * @param boardSizeStr - a string representation of the board size.
+     * @return - the corresponding int of the board size, default size is given if there is an error.
+     */
     public static int parseBoardSize(String boardSizeStr) {
         int boardSize = 0;
         if (isBoardSizeValid(boardSizeStr)) {
             boardSize = Integer.parseInt(boardSizeStr);
         } else {
             // default board size.
-            System.err
-                    .println("Error parsing board size, default will be given");
             boardSize = Globals.kSize;
         }
         return boardSize;

@@ -2,9 +2,6 @@ package reversiapp;
 
 import javafx.scene.paint.Color;
 
-import java.util.List;
-import java.util.Scanner;
-
 public class HumanPlayer implements Player {
     private char disk;
     private Color color;

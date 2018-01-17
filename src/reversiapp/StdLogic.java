@@ -79,7 +79,6 @@ public class StdLogic implements Logic {
             }
         }
         for (int i = 0; i < flips.size(); i++) {
-            System.out.println(flips.get(i) + " ");
             flips.get(i).setDisk(player.getDisk());
         }
         tracker.updateScore(player.getDisk(), flips.size());

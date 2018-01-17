@@ -1,19 +1,15 @@
 package application;
 
 
-import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -21,8 +17,6 @@ import reversiapp.*;
 import settings_io.SettingsReader;
 import settings_io.StartingPlayer;
 
-import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -104,18 +98,16 @@ public class ReversiGameController implements Initializable {
             reversiBoard.draw(this.possibleMoves);
         });
         root.heightProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println(newValue.doubleValue());
             reversiBoard.setPrefHeight(newValue.doubleValue());
             reversiBoard.draw(this.possibleMoves);
         });
         // adds mouse click event.
         reversiBoard.setOnMouseClicked(event -> {
-            System.out.println(event.getX() + " " + event.getY() + " " + "EVENT CORD");
             Cell picked = reversiBoard.clicked(event);
             event.consume();
             if (this.playTurn(currentPlayer, picked)) {
                 // turn was valid.
-                if(!updateNextMove()) {
+                if (!updateNextMove()) {
                     // removes the mouse click trigger event, game is over.
                     reversiBoard.setOnMouseClicked(null);
                 }
@@ -211,27 +203,37 @@ public class ReversiGameController implements Initializable {
         player1Score.setText("x" + scoreTracker.getPlayer1Score());
         player2Score.setText("x" + scoreTracker.getPlayer2Score());
     }
-    private void showWinner () {
-        if(this.scoreTracker.getPlayer1Score() > this.scoreTracker.getPlayer2Score()) {
+
+    /**
+     * Shows the winner of the game.
+     */
+    private void showWinner() {
+        if (this.scoreTracker.getPlayer1Score() > this.scoreTracker.getPlayer2Score()) {
             AlertBox.display("VICTORY", "CONGRATULATIONS " + this.player1.playerName() + " WINS!!!");
         } else if (this.scoreTracker.getPlayer1Score() < this.scoreTracker.getPlayer2Score()) {
-            AlertBox.display("VICTORY","CONGRATULATIONS " + this.player2.playerName() + " WINS!!!");
+            AlertBox.display("VICTORY", "CONGRATULATIONS " + this.player2.playerName() + " WINS!!!");
         } else {
-            AlertBox.display("DRAW","IT'S A DRAW! WELL PLAYED");
+            AlertBox.display("DRAW", "IT'S A DRAW! WELL PLAYED");
         }
     }
 
     @FXML
+    /**
+     * Draws the possible moves and toggle a radio button to true/false.
+     */
     protected void showMoves(javafx.event.ActionEvent event) {
         reversiBoard.togglePossibleMoves();
         this.reDraw();
     }
 
     @FXML
+    /**
+     * Return to the main menu when the button is pressed.
+     */
     protected void back(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
-            Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
+            Scene scene = new Scene(parent, root.getPrefWidth(), root.getPrefHeight());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
             stage.setTitle("Reversi");
@@ -243,10 +245,13 @@ public class ReversiGameController implements Initializable {
     }
 
     @FXML
+    /**
+     * Restarts the game.
+     */
     protected void restart(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("reversiGame.fxml"));
-            Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
+            Scene scene = new Scene(parent, root.getPrefWidth(), root.getPrefHeight());
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setTitle("Reversi Game");
             stage.setScene(scene);

@@ -7,26 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
-import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import reversiapp.GameSettings;
 import settings_io.SettingsParser;
 import settings_io.SettingsReader;
 import settings_io.SettingsWriter;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-
-import static reversiapp.Globals.kBlacks;
-import static reversiapp.Globals.kWhites;
 
 public class SettingsController {
     ObservableList<String> sizes = FXCollections.observableArrayList("4", "6", "8", "10", "12", "14", "16", "18", "20");
@@ -59,6 +48,9 @@ public class SettingsController {
     }
 
     @FXML
+    /**
+     * Saves the changes to a settings text file and return to the main menu.
+     */
     protected void done(javafx.event.ActionEvent event) {
         GameSettings gameSettings = new GameSettings();
         gameSettings.setBoardSize(boardSize.getValue().toString());
@@ -74,13 +66,16 @@ public class SettingsController {
     }
 
     @FXML
+    /**
+     * Back to main menu without saving the changes.
+     */
     protected void back(javafx.event.ActionEvent event) {
         try {
             Parent parent = FXMLLoader.load(getClass().getResource("mainMenu.fxml"));
             Scene scene = new Scene(parent, Main.kWidth, Main.kHeight);
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-            stage.setTitle("Settings");
+            stage.setTitle("Reversi");
             stage.setScene(scene);
             stage.show();
         } catch (Exception e) {

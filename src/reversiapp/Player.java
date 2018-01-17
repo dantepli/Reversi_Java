@@ -2,8 +2,6 @@ package reversiapp;
 
 import javafx.scene.paint.Color;
 
-import java.util.List;
-
 public interface Player {
     /**
      * @return - disk type.
